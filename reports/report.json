@@ -1,0 +1,10 @@
+{
+    "syntax_errors": [],
+    "structure_errors": [],
+    "nodes_detected": [
+        "Publisher found in good_node.py",
+        "Publisher found in good_node.py"
+    ],
+    "safety_warnings": [],
+    "score": 100
+}

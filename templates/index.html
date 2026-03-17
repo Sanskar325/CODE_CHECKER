@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ROS2 Code Evaluator</title>
+    <style>
+        body { font-family: sans-serif; max-width: 800px; margin: 2rem auto; padding: 0 1rem; }
+        .box { border: 2px solid #ddd; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+        .success { color: green; }
+        .error { color: red; }
+        .btn { background: #007bff; color: white; padding: 10px 20px; border: none; cursor: pointer; }
+        .btn:hover { background: #0056b3; }
+        pre { background: #f4f4f4; padding: 10px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <h1>🤖 ROS2 Code Evaluator</h1>
+    
+    <div class="box">
+        <h3>1. Upload Student Code (ZIP)</h3>
+        <form action="/" method="post" enctype="multipart/form-data">
+            <input type="file" name="file" accept=".zip" required>
+            <button type="submit" class="btn">Analyze Code</button>
+        </form>
+    </div>
+
+    {% if report %}
+    <div class="box">
+        <h3>2. Analysis Report</h3>
+        <p><strong>Score:</strong> {{ report.score }}/100</p>
+        
+        {% if report.score < 100 %}
+            <h4 class="error">Errors Found:</h4>
+            <ul>
+                {% for err in report.syntax_errors %} <li class="error">{{ err }}</li> {% endfor %}
+                {% for err in report.structure_errors %} <li class="error">{{ err }}</li> {% endfor %}
+                {% for warn in report.safety_warnings %} <li class="error">{{ warn }}</li> {% endfor %}
+            </ul>
+        {% else %}
+            <p class="success">✅ Code looks good! Ready for Simulation.</p>
+        {% endif %}
+
+        <h4>Nodes Detected:</h4>
+        <ul>
+            {% for node in report.nodes_detected %} <li>{{ node }}</li> {% endfor %}
+        </ul>
+        <div class="box">
+        <h3>3. Simulation Preview</h3>
+        <p>This image was captured during the last test run:</p>
+        
+        <img src="{{ url_for('static', filename='simulation_preview.png') }}?t={{ timestamp }}" 
+             alt="Simulation Preview" 
+             style="max-width: 100%; border: 1px solid #333;">
+             
+        <p style="font-size: 0.8em; color: gray;">(If image shows the desktop, ensure Gazebo is visible on screen during the run)</p>
+    </div>
+
+        {% if report.score > 50 %}
+        <form action="/run_sim" method="post">
+            <button type="submit" class="btn" style="background-color: green;">🚀 Run Simulation</button>
+        </form>
+        {% endif %}
+    </div>
+    {% endif %}
+
+</body>
+</html>

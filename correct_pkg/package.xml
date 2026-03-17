@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>correct_pkg</name>
+  <version>0.0.0</version>
+  <description>A perfect package</description>
+  <maintainer email="me@test.com">Me</maintainer>
+  <license>TODO</license>
+</package>
