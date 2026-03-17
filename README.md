@@ -102,5 +102,5 @@ Contributions are welcome! Please fork the repository and submit a pull request 
 
 ## 👤 Author
 
-**Risabh Paul**
-* GitHub: [RISABH-UG26](https://github.com/RISABH-UG26)
+**SANSKAR VERMA**
+
